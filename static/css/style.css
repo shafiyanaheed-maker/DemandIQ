@@ -1,0 +1,21 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background:#f5f7fb;
+}
+
+.card{
+    border:none;
+    border-radius:15px;
+}
+
+.card-body{
+    text-align:center;
+}
+
+.btn{
+    border-radius:10px;
+}
+
+h2{
+    font-weight:bold;
+}
