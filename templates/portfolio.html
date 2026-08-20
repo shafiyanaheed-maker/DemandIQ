@@ -1,0 +1,33 @@
+<tbody>
+
+{% for stock in portfolio %}
+
+<tr>
+
+    <td>{{ stock[0] }}</td>
+    <td>{{ stock[1] }}</td>
+    <td>{{ stock[2] }}</td>
+    <td>${{ stock[3] }}</td>
+
+    <td>
+
+        <form action="/sell-stock" method="POST">
+
+            <input
+                type="hidden"
+                name="portfolio_id"
+                value="{{ stock[4] }}">
+
+            <button class="btn btn-danger">
+                Sell
+            </button>
+
+        </form>
+
+    </td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>

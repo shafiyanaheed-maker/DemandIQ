@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DemandIQ Investor Dashboard</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body class="bg-light">
+
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-md-2 bg-dark text-white vh-100 p-4">
+
+            <h3>DemandIQ</h3>
+
+            <hr>
+
+            <a href="/investor" class="btn btn-dark w-100 mb-2">
+                Dashboard
+            </a>
+
+            <a href="/stocks" class="btn btn-dark w-100 mb-2">
+                Stocks
+            </a>
+
+            <a href="/portfolio" class="btn btn-dark w-100 mb-2">
+                Portfolio
+            </a>
+
+            <a href="/market" class="btn btn-dark w-100 mb-2">
+                Market Analysis
+            </a>
+
+        </div>
+
+        <div class="col-md-10 p-5">
+
+            <h2>Investor Dashboard</h2>
+
+            <p class="text-muted">
+                AI Powered Stock & Investment Analysis
+            </p>
+
+            <div class="row mt-4">
+
+                <div class="col-md-4">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <h5>Portfolio Value</h5>
+                            <h2>$50,000</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <h5>Today's Gain</h5>
+                            <h2 class="text-success">+$1,250</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <h5>Watchlist</h5>
+                            <h2>5 Stocks</h2>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
