@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sales List</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+
+<h2>Sales Records</h2>
+
+<table class="table table-bordered">
+
+<tr>
+    <th>ID</th>
+    <th>Product</th>
+    <th>Date</th>
+    <th>Quantity</th>
+    <th>Revenue</th>
+</tr>
+
+{% for sale in sales %}
+
+<tr>
+    <td>{{ sale[0] }}</td>
+    <td>{{ sale[1] }}</td>
+    <td>{{ sale[2] }}</td>
+    <td>{{ sale[3] }}</td>
+    <td>{{ sale[4] }}</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+</body>
+</html>
