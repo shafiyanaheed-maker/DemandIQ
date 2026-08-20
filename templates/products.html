@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Product</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+
+    <h2 class="mb-4">Add Product</h2>
+
+    <form method="POST" action="/add-product">
+
+        <div class="row">
+
+            <div class="col-md-3">
+                <input type="text" class="form-control"
+                       name="product_name"
+                       placeholder="Product Name" required>
+            </div>
+
+            <div class="col-md-3">
+                <input type="text" class="form-control"
+                       name="category"
+                       placeholder="Category" required>
+            </div>
+
+            <div class="col-md-2">
+                <input type="number" step="0.01"
+                       class="form-control"
+                       name="price"
+                       placeholder="Price" required>
+            </div>
+
+            <div class="col-md-2">
+                <input type="number"
+                       class="form-control"
+                       name="stock"
+                       placeholder="Stock" required>
+            </div>
+
+            <div class="col-md-2">
+                <button class="btn btn-primary w-100">
+                    Add Product
+                </button>
+            </div>
+
+        </div>
+
+    </form>
+
+    <br>
+
+    <a href="/products-list" class="btn btn-success">
+        View Products
+    </a>
+
+</div>
+
+</body>
+</html>
