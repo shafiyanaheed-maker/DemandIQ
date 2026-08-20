@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Buy Stock</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="container mt-5">
+
+    <h2>Buy Stock</h2>
+
+    <form action="/buy-stock" method="POST">
+
+        <div class="mb-3">
+            <label>Stock</label>
+
+            <select name="stock_id" class="form-control">
+
+                {% for stock in stocks %}
+
+                <option value="{{ stock[0] }}">
+                    {{ stock[1] }} ({{ stock[2] }}) - ${{ stock[4] }}
+                </option>
+
+                {% endfor %}
+
+            </select>
+
+        </div>
+
+        <div class="mb-3">
+
+            <label>Quantity</label>
+
+            <input
+                type="number"
+                name="quantity"
+                class="form-control"
+                required>
+
+        </div>
+
+        <button class="btn btn-success">
+            Buy Stock
+        </button>
+
+    </form>
+
+</div>
+
+</body>
+
+</html>
