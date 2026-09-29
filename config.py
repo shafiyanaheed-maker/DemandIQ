@@ -1,10 +1,19 @@
-import mysql.connector
+import os
+from dotenv import load_dotenv
 
-db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="Dolly#122006",      # Replace with your MySQL password if you have one
-    database="demandiq"
-)
+# Load environment variables from .env
+load_dotenv()
 
-cursor = db.cursor()
+
+class Config:
+    """Application configuration."""
+
+    SECRET_KEY = os.getenv(
+        "SECRET_KEY",
+        "DemandIQ_Development_Key"
+    )
+
+    DB_HOST = os.getenv("DB_HOST", "localhost")
+    DB_USER = os.getenv("DB_USER", "root")
+    DB_PASSWORD = os.getenv("DB_PASSWORD", "")
+    DB_NAME = os.getenv("DB_NAME", "demandiq")
