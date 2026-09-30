@@ -9,13 +9,36 @@ function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  
+    const handleSubmit = async (event) => {
+  event.preventDefault();
 
-    // Static prototype login
-    // Any User ID and Password will continue to the dashboard.
+  try {
+    const response = await fetch("http://127.0.0.1:5000/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      credentials: "include",
+      body: new URLSearchParams({
+        username: userId,
+        password: password,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      alert(data.message || "Invalid User ID or password");
+      return;
+    }
+
     navigate("/dashboard");
-  };
+  } catch (error) {
+    console.error(error);
+    alert("Unable to connect to DemandIQ backend.");
+  }
+};
 
   return (
     <div className="login-page">
