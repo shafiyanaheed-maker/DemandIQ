@@ -63,15 +63,14 @@ function AdminDashboard() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("Overview");
 
-  const showDemoMessage = (message) => {
+  const demoAction = (message) => {
     alert(`${message} — Demo action`);
   };
 
   return (
     <div className="admin-page">
-      {/* =========================
-          SIDEBAR
-      ========================== */}
+      {/* ================= SIDEBAR ================= */}
+
       <aside className="admin-sidebar">
         <div className="admin-brand">
           <div className="admin-brand-mark">D</div>
@@ -138,7 +137,10 @@ function AdminDashboard() {
 
           <div className="admin-nav-label">ADMINISTRATION</div>
 
-          <Link to="/admin" className="admin-nav-item active">
+          <Link
+            to="/admin"
+            className="admin-nav-item active"
+          >
             <span>⚙</span>
             Admin Panel
           </Link>
@@ -153,11 +155,11 @@ function AdminDashboard() {
         </button>
       </aside>
 
-      {/* =========================
-          MAIN CONTENT
-      ========================== */}
+      {/* ================= MAIN ================= */}
+
       <main className="admin-main">
         {/* HEADER */}
+
         <header className="admin-header">
           <div>
             <div className="admin-breadcrumb">
@@ -167,8 +169,8 @@ function AdminDashboard() {
             <h1>Admin Dashboard</h1>
 
             <p>
-              Manage users, monitor platform activity and review
-              system health.
+              Manage users, monitor platform activity and
+              review system health.
             </p>
           </div>
 
@@ -181,7 +183,7 @@ function AdminDashboard() {
             <button
               className="admin-refresh"
               onClick={() =>
-                showDemoMessage("System status refreshed")
+                demoAction("System status refreshed")
               }
             >
               ↻ Refresh
@@ -189,9 +191,8 @@ function AdminDashboard() {
           </div>
         </header>
 
-        {/* =========================
-            STAT CARDS
-        ========================== */}
+        {/* ================= STATISTICS ================= */}
+
         <section className="admin-stats">
           <div className="admin-stat-card">
             <div className="admin-stat-icon users">
@@ -250,11 +251,11 @@ function AdminDashboard() {
           </div>
         </section>
 
-        {/* =========================
-            TOP SECTION
-        ========================== */}
+        {/* ================= SYSTEM SECTION ================= */}
+
         <section className="admin-top-grid">
           {/* SYSTEM HEALTH */}
+
           <div className="admin-panel">
             <div className="admin-panel-header">
               <div>
@@ -271,7 +272,9 @@ function AdminDashboard() {
               <div className="health-row">
                 <div>
                   <strong>API Server</strong>
-                  <span>Core application services</span>
+                  <span>
+                    Core application services
+                  </span>
                 </div>
 
                 <div className="health-value">
@@ -283,7 +286,9 @@ function AdminDashboard() {
               <div className="health-row">
                 <div>
                   <strong>Database</strong>
-                  <span>Data persistence layer</span>
+                  <span>
+                    Data persistence layer
+                  </span>
                 </div>
 
                 <div className="health-value">
@@ -295,7 +300,9 @@ function AdminDashboard() {
               <div className="health-row">
                 <div>
                   <strong>Forecast Engine</strong>
-                  <span>Demand prediction service</span>
+                  <span>
+                    Demand prediction service
+                  </span>
                 </div>
 
                 <div className="health-value">
@@ -307,7 +314,9 @@ function AdminDashboard() {
               <div className="health-row">
                 <div>
                   <strong>Financial Module</strong>
-                  <span>Market intelligence service</span>
+                  <span>
+                    Market intelligence service
+                  </span>
                 </div>
 
                 <div className="health-value">
@@ -319,6 +328,7 @@ function AdminDashboard() {
           </div>
 
           {/* PLATFORM USAGE */}
+
           <div className="admin-panel">
             <div className="admin-panel-header">
               <div>
@@ -355,47 +365,61 @@ function AdminDashboard() {
           </div>
         </section>
 
-        {/* =========================
-            ADMINISTRATION
-        ========================== */}
+        {/* ================= ADMINISTRATION ================= */}
+
         <section className="admin-panel admin-management-panel">
           <div className="admin-panel-header">
             <div>
               <h2>Administration</h2>
-              <p>Manage the DemandIQ platform</p>
+              <p>
+                Manage the DemandIQ platform
+              </p>
             </div>
 
             <div className="admin-tabs">
               <button
                 className={
-                  activeTab === "Overview" ? "active" : ""
+                  activeTab === "Overview"
+                    ? "active"
+                    : ""
                 }
-                onClick={() => setActiveTab("Overview")}
+                onClick={() =>
+                  setActiveTab("Overview")
+                }
               >
                 Overview
               </button>
 
               <button
                 className={
-                  activeTab === "Users" ? "active" : ""
+                  activeTab === "Users"
+                    ? "active"
+                    : ""
                 }
-                onClick={() => setActiveTab("Users")}
+                onClick={() =>
+                  setActiveTab("Users")
+                }
               >
                 Users
               </button>
 
               <button
                 className={
-                  activeTab === "Activity" ? "active" : ""
+                  activeTab === "Activity"
+                    ? "active"
+                    : ""
                 }
-                onClick={() => setActiveTab("Activity")}
+                onClick={() =>
+                  setActiveTab("Activity")
+                }
               >
                 Activity
               </button>
             </div>
           </div>
 
-          {/* OVERVIEW TAB */}
+          {/* OVERVIEW */}
+
           {activeTab === "Overview" && (
             <div className="admin-overview">
               <div className="admin-action-card">
@@ -403,17 +427,17 @@ function AdminDashboard() {
                   ♙
                 </div>
 
-                <div>
-                  <h3>User Management</h3>
+                <h3>User Management</h3>
 
-                  <p>
-                    Review and manage registered DemandIQ
-                    users.
-                  </p>
-                </div>
+                <p>
+                  Review and manage registered
+                  DemandIQ users.
+                </p>
 
                 <button
-                  onClick={() => setActiveTab("Users")}
+                  onClick={() =>
+                    setActiveTab("Users")
+                  }
                 >
                   Manage →
                 </button>
@@ -424,17 +448,17 @@ function AdminDashboard() {
                   ◫
                 </div>
 
-                <div>
-                  <h3>Platform Activity</h3>
+                <h3>Platform Activity</h3>
 
-                  <p>
-                    Review recent actions across the
-                    platform.
-                  </p>
-                </div>
+                <p>
+                  Review recent actions across
+                  the platform.
+                </p>
 
                 <button
-                  onClick={() => setActiveTab("Activity")}
+                  onClick={() =>
+                    setActiveTab("Activity")
+                  }
                 >
                   View →
                 </button>
@@ -445,18 +469,16 @@ function AdminDashboard() {
                   ⚙
                 </div>
 
-                <div>
-                  <h3>System Settings</h3>
+                <h3>System Settings</h3>
 
-                  <p>
-                    Review platform configuration and
-                    services.
-                  </p>
-                </div>
+                <p>
+                  Review platform configuration
+                  and services.
+                </p>
 
                 <button
                   onClick={() =>
-                    showDemoMessage("System settings")
+                    demoAction("System Settings")
                   }
                 >
                   Open →
@@ -465,7 +487,8 @@ function AdminDashboard() {
             </div>
           )}
 
-          {/* USERS TAB */}
+          {/* USERS */}
+
           {activeTab === "Users" && (
             <div className="admin-users-table-wrapper">
               <table className="admin-users-table">
@@ -489,8 +512,13 @@ function AdminDashboard() {
                           </div>
 
                           <div>
-                            <strong>{user.name}</strong>
-                            <span>{user.email}</span>
+                            <strong>
+                              {user.name}
+                            </strong>
+
+                            <span>
+                              {user.email}
+                            </span>
                           </div>
                         </div>
                       </td>
@@ -514,7 +542,7 @@ function AdminDashboard() {
                         <button
                           className="user-action"
                           onClick={() =>
-                            showDemoMessage(
+                            demoAction(
                               `Manage ${user.name}`
                             )
                           }
@@ -529,51 +557,65 @@ function AdminDashboard() {
             </div>
           )}
 
-          {/* ACTIVITY TAB */}
+          {/* ACTIVITY */}
+
           {activeTab === "Activity" && (
             <div className="activity-list">
-              {activities.map((activity, index) => (
-                <div
-                  className="activity-row"
-                  key={index}
-                >
+              {activities.map(
+                (activity, index) => (
                   <div
-                    className={`activity-icon ${activity.type}`}
+                    className="activity-row"
+                    key={index}
                   >
-                    {activity.type === "user" && "♙"}
-                    {activity.type === "forecast" && "⌁"}
-                    {activity.type === "alert" && "!"}
-                    {activity.type === "portfolio" && "↗"}
+                    <div
+                      className={`activity-icon ${activity.type}`}
+                    >
+                      {activity.type ===
+                        "user" && "♙"}
+
+                      {activity.type ===
+                        "forecast" && "⌁"}
+
+                      {activity.type ===
+                        "alert" && "!"}
+
+                      {activity.type ===
+                        "portfolio" && "↗"}
+                    </div>
+
+                    <div className="activity-content">
+                      <strong>
+                        {activity.title}
+                      </strong>
+
+                      <span>
+                        By {activity.user}
+                      </span>
+                    </div>
+
+                    <time>
+                      {activity.time}
+                    </time>
                   </div>
-
-                  <div className="activity-content">
-                    <strong>{activity.title}</strong>
-
-                    <span>
-                      By {activity.user}
-                    </span>
-                  </div>
-
-                  <time>{activity.time}</time>
-                </div>
-              ))}
+                )
+              )}
             </div>
           )}
         </section>
 
-        {/* =========================
-            QUICK ACTIONS
-        ========================== */}
+        {/* ================= QUICK ACTIONS ================= */}
+
         <section className="admin-quick-actions">
           <button
             onClick={() =>
-              showDemoMessage("Add new user")
+              demoAction("Add New User")
             }
           >
             <span>+</span>
 
             <div>
               <strong>Add User</strong>
+
               <small>
                 Create a new platform account
               </small>
@@ -582,13 +624,14 @@ function AdminDashboard() {
 
           <button
             onClick={() =>
-              showDemoMessage("System configuration")
+              demoAction("System Settings")
             }
           >
             <span>⚙</span>
 
             <div>
               <strong>System Settings</strong>
+
               <small>
                 Configure platform services
               </small>
@@ -597,13 +640,14 @@ function AdminDashboard() {
 
           <button
             onClick={() =>
-              showDemoMessage("Audit logs")
+              demoAction("Audit Logs")
             }
           >
             <span>▤</span>
 
             <div>
               <strong>Audit Logs</strong>
+
               <small>
                 Review administrative activity
               </small>
@@ -612,13 +656,14 @@ function AdminDashboard() {
 
           <button
             onClick={() =>
-              showDemoMessage("Generate report")
+              demoAction("Generate Report")
             }
           >
             <span>↗</span>
 
             <div>
               <strong>Generate Report</strong>
+
               <small>
                 Create system overview report
               </small>

@@ -7,11 +7,16 @@ import {
 
 import "./App.css";
 
+// Main pages
 import Landing from "./pages/Landing";
 import Login from "./pages/Login";
+
+// Dashboards
 import BusinessDashboard from "./pages/BusinessDashboard";
 import InvestorDashboard from "./pages/InvestorDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
+
+// Business modules
 import Forecast from "./pages/Forecast";
 import ModulePage from "./pages/ModulePage";
 
@@ -19,9 +24,10 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* ================================================
-            MAIN
-            ================================================ */}
+
+        {/* =====================================================
+            LANDING & AUTHENTICATION
+        ====================================================== */}
 
         <Route
           path="/"
@@ -33,9 +39,10 @@ function App() {
           element={<Login />}
         />
 
-        {/* ================================================
-            BUSINESS
-            ================================================ */}
+
+        {/* =====================================================
+            BUSINESS DASHBOARD
+        ====================================================== */}
 
         <Route
           path="/dashboard"
@@ -47,10 +54,20 @@ function App() {
           element={<BusinessDashboard />}
         />
 
+
+        {/* =====================================================
+            DEMAND FORECASTING
+        ====================================================== */}
+
         <Route
           path="/forecast"
           element={<Forecast />}
         />
+
+
+        {/* =====================================================
+            BUSINESS INTELLIGENCE MODULES
+        ====================================================== */}
 
         <Route
           path="/inventory"
@@ -67,14 +84,25 @@ function App() {
           element={<ModulePage />}
         />
 
-        {/* ================================================
-            INVESTOR
-            ================================================ */}
+
+        {/* =====================================================
+            FINANCIAL STOCKS
+        ====================================================== */}
 
         <Route
           path="/investor"
           element={<InvestorDashboard />}
         />
+
+        <Route
+          path="/stocks"
+          element={<InvestorDashboard />}
+        />
+
+
+        {/* =====================================================
+            INVESTOR MODULES
+        ====================================================== */}
 
         <Route
           path="/portfolio"
@@ -86,23 +114,21 @@ function App() {
           element={<ModulePage />}
         />
 
-        <Route
-          path="/stocks"
-          element={<InvestorDashboard />}
-        />
 
-        {/* ================================================
-            ADMIN
-            ================================================ */}
+        {/* =====================================================
+            ADMINISTRATION
+        ====================================================== */}
 
         <Route
           path="/admin"
           element={<AdminDashboard />}
         />
 
-        {/* ================================================
+
+        {/* =====================================================
             FALLBACK
-            ================================================ */}
+            Any unknown URL goes back to landing page.
+        ====================================================== */}
 
         <Route
           path="*"
@@ -113,6 +139,7 @@ function App() {
             />
           }
         />
+
       </Routes>
     </BrowserRouter>
   );

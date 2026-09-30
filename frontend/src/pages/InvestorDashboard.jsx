@@ -84,39 +84,54 @@ const portfolio = [
 
 function InvestorDashboard() {
   const navigate = useNavigate();
+
   const [search, setSearch] = useState("");
   const [selectedSector, setSelectedSector] = useState("All");
   const [activeTab, setActiveTab] = useState("Stocks");
 
-  const sectors = ["All", "Technology", "Banking", "Energy", "FMCG"];
+  const sectors = [
+    "All",
+    "Technology",
+    "Banking",
+    "Energy",
+    "FMCG",
+  ];
 
   const filteredStocks = useMemo(() => {
     return stocks.filter((stock) => {
+      const searchText = search.toLowerCase();
+
       const matchesSearch =
-        stock.symbol.toLowerCase().includes(search.toLowerCase()) ||
-        stock.name.toLowerCase().includes(search.toLowerCase());
+        stock.symbol.toLowerCase().includes(searchText) ||
+        stock.name.toLowerCase().includes(searchText);
 
       const matchesSector =
-        selectedSector === "All" || stock.sector === selectedSector;
+        selectedSector === "All" ||
+        stock.sector === selectedSector;
 
       return matchesSearch && matchesSector;
     });
   }, [search, selectedSector]);
 
   const handleAction = (action, stock) => {
-    alert(`${action} ${stock.symbol} — Demo action for prototype`);
+    alert(
+      `${action} ${stock.symbol} — Demo action for prototype`
+    );
   };
 
   return (
     <div className="investor-page">
-      {/* SIDEBAR */}
+      {/* =====================================================
+          SIDEBAR
+      ====================================================== */}
+
       <aside className="investor-sidebar">
         <div className="investor-brand">
           <div className="investor-brand-mark">D</div>
 
           <div>
             <h2>DemandIQ</h2>
-            <span>Intelligence Platform</span>
+            <span>Intelligent Decisions</span>
           </div>
         </div>
 
@@ -130,34 +145,51 @@ function InvestorDashboard() {
         </div>
 
         <nav className="investor-nav">
-          <div className="investor-nav-label">MAIN</div>
+          <div className="investor-nav-label">
+            MAIN
+          </div>
 
-          <Link to="/dashboard" className="investor-nav-item">
+          <Link
+            to="/dashboard"
+            className="investor-nav-item"
+          >
             <span>⌂</span>
             Dashboard
           </Link>
 
-          <Link to="/forecast" className="investor-nav-item">
+          <Link
+            to="/forecast"
+            className="investor-nav-item"
+          >
             <span>⌁</span>
             Forecast
           </Link>
 
-          <Link to="/inventory" className="investor-nav-item">
+          <Link
+            to="/inventory"
+            className="investor-nav-item"
+          >
             <span>▣</span>
             Inventory
           </Link>
 
-          <Link to="/analytics" className="investor-nav-item">
+          <Link
+            to="/analytics"
+            className="investor-nav-item"
+          >
             <span>◫</span>
             Analytics
           </Link>
 
-          <Link to="/alerts" className="investor-nav-item">
+          <Link
+            to="/alerts"
+            className="investor-nav-item"
+          >
             <span>⚠</span>
             Alerts
           </Link>
 
-          <div className="investor-nav-label financial-label">
+          <div className="investor-nav-label">
             FINANCIAL
           </div>
 
@@ -169,14 +201,32 @@ function InvestorDashboard() {
             Financial Stocks
           </Link>
 
-          <Link to="/portfolio" className="investor-nav-item">
+          <Link
+            to="/portfolio"
+            className="investor-nav-item"
+          >
             <span>▤</span>
             Portfolio
           </Link>
 
-          <Link to="/transactions" className="investor-nav-item">
+          <Link
+            to="/transactions"
+            className="investor-nav-item"
+          >
             <span>↔</span>
             Transactions
+          </Link>
+
+          <div className="investor-nav-label">
+            ADMINISTRATION
+          </div>
+
+          <Link
+            to="/admin"
+            className="investor-nav-item"
+          >
+            <span>⚙</span>
+            Admin Panel
           </Link>
         </nav>
 
@@ -189,9 +239,13 @@ function InvestorDashboard() {
         </button>
       </aside>
 
-      {/* MAIN */}
+      {/* =====================================================
+          MAIN CONTENT
+      ====================================================== */}
+
       <main className="investor-main">
         {/* HEADER */}
+
         <header className="investor-header">
           <div>
             <div className="investor-breadcrumb">
@@ -201,8 +255,8 @@ function InvestorDashboard() {
             <h1>Financial Stocks</h1>
 
             <p>
-              Track market movements, monitor stocks and manage your
-              investment intelligence.
+              Track market movements, monitor stocks and
+              manage your investment intelligence.
             </p>
           </div>
 
@@ -214,7 +268,9 @@ function InvestorDashboard() {
 
             <button
               className="investor-refresh"
-              onClick={() => alert("Market data refreshed")}
+              onClick={() =>
+                alert("Market data refreshed")
+              }
             >
               ↻ Refresh
             </button>
@@ -222,11 +278,14 @@ function InvestorDashboard() {
         </header>
 
         {/* MARKET CARDS */}
+
         <section className="investor-market-cards">
           <div className="market-card">
             <div className="market-card-top">
               <span>NIFTY 50</span>
-              <span className="positive">+0.84%</span>
+              <span className="positive">
+                +0.84%
+              </span>
             </div>
 
             <strong>24,315.95</strong>
@@ -237,7 +296,9 @@ function InvestorDashboard() {
           <div className="market-card">
             <div className="market-card-top">
               <span>SENSEX</span>
-              <span className="positive">+0.72%</span>
+              <span className="positive">
+                +0.72%
+              </span>
             </div>
 
             <strong>79,802.79</strong>
@@ -248,7 +309,9 @@ function InvestorDashboard() {
           <div className="market-card">
             <div className="market-card-top">
               <span>BANK NIFTY</span>
-              <span className="positive">+0.58%</span>
+              <span className="positive">
+                +0.58%
+              </span>
             </div>
 
             <strong>52,184.25</strong>
@@ -259,7 +322,9 @@ function InvestorDashboard() {
           <div className="market-card">
             <div className="market-card-top">
               <span>YOUR PORTFOLIO</span>
-              <span className="positive">+12.27%</span>
+              <span className="positive">
+                +12.27%
+              </span>
             </div>
 
             <strong>₹8.42L</strong>
@@ -268,14 +333,18 @@ function InvestorDashboard() {
           </div>
         </section>
 
-        {/* CONTENT GRID */}
+        {/* MAIN CONTENT GRID */}
+
         <section className="investor-content-grid">
-          {/* STOCKS */}
+          {/* STOCK TABLE */}
+
           <div className="investor-panel stocks-panel">
             <div className="panel-header">
               <div>
                 <h2>Market Stocks</h2>
-                <p>Explore selected market instruments</p>
+                <p>
+                  Explore selected market instruments
+                </p>
               </div>
 
               <div className="stock-count">
@@ -291,16 +360,25 @@ function InvestorDashboard() {
                   type="text"
                   placeholder="Search stocks..."
                   value={search}
-                  onChange={(e) => setSearch(e.target.value)}
+                  onChange={(event) =>
+                    setSearch(event.target.value)
+                  }
                 />
               </div>
 
               <select
                 value={selectedSector}
-                onChange={(e) => setSelectedSector(e.target.value)}
+                onChange={(event) =>
+                  setSelectedSector(
+                    event.target.value
+                  )
+                }
               >
                 {sectors.map((sector) => (
-                  <option key={sector} value={sector}>
+                  <option
+                    key={sector}
+                    value={sector}
+                  >
                     {sector}
                   </option>
                 ))}
@@ -330,17 +408,26 @@ function InvestorDashboard() {
                           </div>
 
                           <div>
-                            <strong>{stock.symbol}</strong>
-                            <span>{stock.name}</span>
+                            <strong>
+                              {stock.symbol}
+                            </strong>
+
+                            <span>
+                              {stock.name}
+                            </span>
                           </div>
                         </div>
                       </td>
 
                       <td>
                         <strong>
-                          ₹{stock.price.toLocaleString("en-IN", {
-                            minimumFractionDigits: 2,
-                          })}
+                          ₹
+                          {stock.price.toLocaleString(
+                            "en-IN",
+                            {
+                              minimumFractionDigits: 2,
+                            }
+                          )}
                         </strong>
                       </td>
 
@@ -352,7 +439,9 @@ function InvestorDashboard() {
                               : "stock-change negative"
                           }
                         >
-                          {stock.change >= 0 ? "+" : ""}
+                          {stock.change >= 0
+                            ? "+"
+                            : ""}
                           {stock.change}%
                         </span>
                       </td>
@@ -366,7 +455,10 @@ function InvestorDashboard() {
                           <button
                             className="buy-btn"
                             onClick={() =>
-                              handleAction("Buy", stock)
+                              handleAction(
+                                "Buy",
+                                stock
+                              )
                             }
                           >
                             Buy
@@ -375,7 +467,10 @@ function InvestorDashboard() {
                           <button
                             className="sell-btn"
                             onClick={() =>
-                              handleAction("Sell", stock)
+                              handleAction(
+                                "Sell",
+                                stock
+                              )
                             }
                           >
                             Sell
@@ -395,77 +490,103 @@ function InvestorDashboard() {
             </div>
           </div>
 
-          {/* RIGHT SIDE */}
+          {/* RIGHT COLUMN */}
+
           <div className="investor-right-column">
             {/* WATCHLIST */}
+
             <div className="investor-panel watchlist-panel">
               <div className="panel-header">
                 <div>
                   <h2>Watchlist</h2>
-                  <p>Stocks you're monitoring</p>
+                  <p>
+                    Stocks you're monitoring
+                  </p>
                 </div>
 
                 <button
                   className="view-all-btn"
-                  onClick={() => setSearch("")}
+                  onClick={() =>
+                    setSearch("")
+                  }
                 >
                   View all
                 </button>
               </div>
 
               <div className="watchlist">
-                {stocks.slice(0, 4).map((stock) => (
-                  <div
-                    className="watchlist-row"
-                    key={stock.symbol}
-                  >
-                    <div className="watchlist-info">
-                      <div className="mini-stock-logo">
-                        {stock.symbol.charAt(0)}
+                {stocks
+                  .slice(0, 4)
+                  .map((stock) => (
+                    <div
+                      className="watchlist-row"
+                      key={stock.symbol}
+                    >
+                      <div className="watchlist-info">
+                        <div className="mini-stock-logo">
+                          {stock.symbol.charAt(0)}
+                        </div>
+
+                        <div>
+                          <strong>
+                            {stock.symbol}
+                          </strong>
+
+                          <span>
+                            {stock.sector}
+                          </span>
+                        </div>
                       </div>
 
-                      <div>
-                        <strong>{stock.symbol}</strong>
-                        <span>{stock.sector}</span>
+                      <div className="watchlist-price">
+                        <strong>
+                          ₹
+                          {stock.price.toLocaleString(
+                            "en-IN",
+                            {
+                              maximumFractionDigits: 2,
+                            }
+                          )}
+                        </strong>
+
+                        <span
+                          className={
+                            stock.change >= 0
+                              ? "positive"
+                              : "negative"
+                          }
+                        >
+                          {stock.change >= 0
+                            ? "+"
+                            : ""}
+                          {stock.change}%
+                        </span>
                       </div>
                     </div>
-
-                    <div className="watchlist-price">
-                      <strong>
-                        ₹
-                        {stock.price.toLocaleString("en-IN", {
-                          maximumFractionDigits: 2,
-                        })}
-                      </strong>
-
-                      <span
-                        className={
-                          stock.change >= 0
-                            ? "positive"
-                            : "negative"
-                        }
-                      >
-                        {stock.change >= 0 ? "+" : ""}
-                        {stock.change}%
-                      </span>
-                    </div>
-                  </div>
-                ))}
+                  ))}
               </div>
             </div>
 
             {/* PORTFOLIO SUMMARY */}
+
             <div className="investor-panel portfolio-summary">
               <div className="panel-header">
                 <div>
-                  <h2>Portfolio Summary</h2>
-                  <p>Current investment position</p>
+                  <h2>
+                    Portfolio Summary
+                  </h2>
+
+                  <p>
+                    Current investment position
+                  </p>
                 </div>
               </div>
 
               <div className="portfolio-value">
                 <span>Total Value</span>
+
                 <strong>₹8,42,000</strong>
+
                 <small className="positive">
                   +₹92,000 (+12.27%)
                 </small>
@@ -474,7 +595,9 @@ function InvestorDashboard() {
               <div className="portfolio-stats">
                 <div>
                   <span>Invested</span>
-                  <strong>₹7,50,000</strong>
+                  <strong>
+                    ₹7,50,000
+                  </strong>
                 </div>
 
                 <div>
@@ -495,24 +618,42 @@ function InvestorDashboard() {
         </section>
 
         {/* HOLDINGS */}
+
         <section className="investor-panel holdings-panel">
           <div className="panel-header">
             <div>
               <h2>Top Holdings</h2>
-              <p>Your current stock positions</p>
+
+              <p>
+                Your current stock positions
+              </p>
             </div>
 
             <div className="holdings-tabs">
               <button
-                className={activeTab === "Stocks" ? "active" : ""}
-                onClick={() => setActiveTab("Stocks")}
+                className={
+                  activeTab === "Stocks"
+                    ? "active"
+                    : ""
+                }
+                onClick={() =>
+                  setActiveTab("Stocks")
+                }
               >
                 Stocks
               </button>
 
               <button
-                className={activeTab === "Performance" ? "active" : ""}
-                onClick={() => setActiveTab("Performance")}
+                className={
+                  activeTab === "Performance"
+                    ? "active"
+                    : ""
+                }
+                onClick={() =>
+                  setActiveTab(
+                    "Performance"
+                  )
+                }
               >
                 Performance
               </button>
@@ -523,11 +664,13 @@ function InvestorDashboard() {
             <div className="holdings-grid">
               {portfolio.map((item) => {
                 const profit =
-                  (item.currentPrice - item.avgPrice) *
+                  (item.currentPrice -
+                    item.avgPrice) *
                   item.shares;
 
                 const profitPercent =
-                  ((item.currentPrice - item.avgPrice) /
+                  ((item.currentPrice -
+                    item.avgPrice) /
                     item.avgPrice) *
                   100;
 
@@ -543,8 +686,13 @@ function InvestorDashboard() {
                         </div>
 
                         <div>
-                          <strong>{item.symbol}</strong>
-                          <span>{item.name}</span>
+                          <strong>
+                            {item.symbol}
+                          </strong>
+
+                          <span>
+                            {item.name}
+                          </span>
                         </div>
                       </div>
 
@@ -555,14 +703,21 @@ function InvestorDashboard() {
 
                     <div className="holding-details">
                       <div>
-                        <span>Avg. Price</span>
+                        <span>
+                          Avg. Price
+                        </span>
+
                         <strong>
-                          ₹{item.avgPrice.toLocaleString("en-IN")}
+                          ₹
+                          {item.avgPrice.toLocaleString(
+                            "en-IN"
+                          )}
                         </strong>
                       </div>
 
                       <div>
                         <span>Current</span>
+
                         <strong>
                           ₹
                           {item.currentPrice.toLocaleString(
@@ -573,8 +728,12 @@ function InvestorDashboard() {
 
                       <div>
                         <span>Returns</span>
+
                         <strong className="positive">
-                          +₹{profit.toLocaleString("en-IN")}
+                          +₹
+                          {profit.toLocaleString(
+                            "en-IN"
+                          )}
                         </strong>
                       </div>
                     </div>
@@ -583,7 +742,10 @@ function InvestorDashboard() {
                       <div
                         style={{
                           width: `${Math.min(
-                            Math.max(profitPercent * 5, 15),
+                            Math.max(
+                              profitPercent * 5,
+                              15
+                            ),
                             100
                           )}%`,
                         }}
@@ -591,7 +753,11 @@ function InvestorDashboard() {
                     </div>
 
                     <span className="holding-return">
-                      +{profitPercent.toFixed(2)}% return
+                      +
+                      {profitPercent.toFixed(
+                        2
+                      )}
+                      % return
                     </span>
                   </div>
                 );
@@ -599,54 +765,76 @@ function InvestorDashboard() {
             </div>
           ) : (
             <div className="performance-message">
-              <div className="performance-icon">↗</div>
+              <div className="performance-icon">
+                ↗
+              </div>
 
-              <h3>Portfolio Performance</h3>
+              <h3>
+                Portfolio Performance
+              </h3>
 
               <p>
-                Your portfolio has generated a total return of
-                <strong> +12.27%</strong> based on the static
-                prototype data.
+                Your portfolio has generated
+                a total return of
+                <strong> +12.27%</strong> based
+                on the static prototype data.
               </p>
             </div>
           )}
         </section>
 
         {/* QUICK ACTIONS */}
+
         <section className="quick-actions">
           <button
-            onClick={() => alert("Buy Stock demo opened")}
+            onClick={() =>
+              alert("Buy Stock demo opened")
+            }
           >
             <span>+</span>
+
             <div>
               <strong>Buy Stock</strong>
-              <small>Place a demo buy order</small>
+              <small>
+                Place a demo buy order
+              </small>
             </div>
           </button>
 
           <button
-            onClick={() => alert("Sell Stock demo opened")}
+            onClick={() =>
+              alert("Sell Stock demo opened")
+            }
           >
             <span>−</span>
+
             <div>
               <strong>Sell Stock</strong>
-              <small>Place a demo sell order</small>
+              <small>
+                Place a demo sell order
+              </small>
             </div>
           </button>
 
           <Link to="/portfolio">
             <span>▤</span>
+
             <div>
               <strong>Portfolio</strong>
-              <small>View your holdings</small>
+              <small>
+                View your holdings
+              </small>
             </div>
           </Link>
 
           <Link to="/transactions">
             <span>↔</span>
+
             <div>
               <strong>Transactions</strong>
-              <small>View transaction history</small>
+              <small>
+                View transaction history
+              </small>
             </div>
           </Link>
         </section>
