@@ -1,4 +1,5 @@
 from flask import Flask, jsonify
+from flask_cors import CORS
 
 from config import Config
 
@@ -8,6 +9,14 @@ def create_app():
 
     app = Flask(__name__)
     app.config.from_object(Config)
+
+    # Allow the React frontend to communicate with the Flask backend
+    # while preserving Flask session cookies.
+    CORS(
+        app,
+        supports_credentials=True,
+        origins=["http://localhost:5173"]
+    )
 
     # Register route blueprints
     from routes.auth import auth_bp
