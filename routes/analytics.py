@@ -1,74 +1,51 @@
-import os
-import pandas as pd
-import matplotlib.pyplot as plt
-from sklearn.linear_model import LinearRegression
-from flask import Blueprint, render_template, jsonify
+from flask import Blueprint, jsonify, render_template, request
 
 from database import get_connection
+from routes.auth import role_required
+from services.forecast_service import generate_product_forecast
+from services.inventory_intelligence import (
+    get_intelligence_summary,
+)
 
 analytics_bp = Blueprint("analytics", __name__)
 
 
 # --------------------------------
-# Demand Forecast
+# Forecast Dashboard
 # --------------------------------
 
 @analytics_bp.route("/forecast")
+@role_required("Business", "Admin")
 def forecast():
+    """
+    Render the demand forecast dashboard.
 
-    connection = get_connection()
-
-    query = """
-        SELECT quantity_sold
-        FROM sales
-        ORDER BY sale_id
+    The actual forecasting logic is handled by forecast_service.py.
     """
 
-    df = pd.read_sql(query, connection)
+    product_id = request.args.get("product_id", type=int)
 
-    connection.close()
+    prediction = None
+    forecasts = []
 
-    if len(df) == 0:
+    if product_id:
+        try:
+            forecasts = generate_product_forecast(
+                product_id,
+                forecast_days=7
+            )
 
-        prediction = 0
-        quantities = []
+            if forecasts:
+                prediction = forecasts[0]["predicted_demand"]
 
-    elif len(df) == 1:
-
-        prediction = int(df["quantity_sold"].iloc[0])
-        quantities = df["quantity_sold"].tolist()
-
-    else:
-
-        X = [[i] for i in range(len(df))]
-        y = df["quantity_sold"]
-
-        model = LinearRegression()
-        model.fit(X, y)
-
-        prediction = round(model.predict([[len(df)]])[0])
-        quantities = y.tolist()
-
-    graph_data = quantities + [prediction]
-
-    plt.figure(figsize=(8,4))
-    plt.plot(graph_data, marker="o")
-    plt.title("Demand Forecast")
-    plt.xlabel("Sales Record")
-    plt.ylabel("Quantity Sold")
-    plt.grid(True)
-
-    folder = os.path.join("static", "graphs")
-
-    if not os.path.exists(folder):
-        os.makedirs(folder)
-
-    plt.savefig(os.path.join(folder, "forecast.png"))
-    plt.close()
+        except ValueError:
+            prediction = None
 
     return render_template(
         "forecast.html",
-        prediction=prediction
+        prediction=prediction,
+        forecasts=forecasts,
+        product_id=product_id
     )
 
 
@@ -77,24 +54,28 @@ def forecast():
 # --------------------------------
 
 @analytics_bp.route("/api/total-products")
+@role_required("Business", "Admin")
 def total_products():
 
     connection = get_connection()
     cursor = connection.cursor()
 
-    cursor.execute("""
-        SELECT COUNT(*)
-        FROM products
-    """)
+    try:
+        cursor.execute("""
+            SELECT COUNT(*)
+            FROM products
+        """)
 
-    total = cursor.fetchone()[0]
+        total = cursor.fetchone()[0]
 
-    cursor.close()
-    connection.close()
+        return jsonify({
+            "status": "success",
+            "total_products": total
+        })
 
-    return jsonify({
-    "total_products": total
-})
+    finally:
+        cursor.close()
+        connection.close()
 
 
 # --------------------------------
@@ -102,24 +83,28 @@ def total_products():
 # --------------------------------
 
 @analytics_bp.route("/api/total-revenue")
+@role_required("Business", "Admin")
 def total_revenue():
 
     connection = get_connection()
     cursor = connection.cursor()
 
-    cursor.execute("""
-        SELECT IFNULL(SUM(revenue),0)
-        FROM sales
-    """)
+    try:
+        cursor.execute("""
+            SELECT IFNULL(SUM(revenue), 0)
+            FROM sales
+        """)
 
-    revenue = cursor.fetchone()[0]
+        revenue = cursor.fetchone()[0]
 
-    cursor.close()
-    connection.close()
+        return jsonify({
+            "status": "success",
+            "total_revenue": float(revenue)
+        })
 
-    return jsonify({
-    "total_revenue": revenue
-})
+    finally:
+        cursor.close()
+        connection.close()
 
 
 # --------------------------------
@@ -127,24 +112,28 @@ def total_revenue():
 # --------------------------------
 
 @analytics_bp.route("/api/total-stocks")
+@role_required("Business", "Admin")
 def total_stocks():
 
     connection = get_connection()
     cursor = connection.cursor()
 
-    cursor.execute("""
-        SELECT COUNT(*)
-        FROM stocks
-    """)
+    try:
+        cursor.execute("""
+            SELECT COUNT(*)
+            FROM stocks
+        """)
 
-    total = cursor.fetchone()[0]
+        total = cursor.fetchone()[0]
 
-    cursor.close()
-    connection.close()
+        return jsonify({
+            "status": "success",
+            "total_stocks": total
+        })
 
-    return jsonify({
-    "total_stocks": total
-})
+    finally:
+        cursor.close()
+        connection.close()
 
 
 # --------------------------------
@@ -152,21 +141,80 @@ def total_stocks():
 # --------------------------------
 
 @analytics_bp.route("/api/total-investors")
+@role_required("Admin")
 def total_investors():
 
     connection = get_connection()
     cursor = connection.cursor()
 
-    cursor.execute("""
-        SELECT COUNT(*)
-        FROM users
-        WHERE role='Investor'
-    """)
+    try:
+        cursor.execute("""
+            SELECT COUNT(*)
+            FROM users
+            WHERE role = 'Investor'
+        """)
 
-    total = cursor.fetchone()[0]
+        total = cursor.fetchone()[0]
 
-    cursor.close()
-    connection.close()
-    return jsonify({
-    "total_investors": total
-})
+        return jsonify({
+            "status": "success",
+            "total_investors": total
+        })
+
+    finally:
+        cursor.close()
+        connection.close()
+
+
+# --------------------------------
+# Business Analytics Summary
+# --------------------------------
+
+@analytics_bp.route("/api/analytics/summary")
+@role_required("Business", "Admin")
+def analytics_summary():
+
+    connection = get_connection()
+    cursor = connection.cursor()
+
+    try:
+        cursor.execute("""
+            SELECT COUNT(*)
+            FROM products
+        """)
+        total_products = cursor.fetchone()[0]
+
+        cursor.execute("""
+            SELECT IFNULL(SUM(revenue), 0)
+            FROM sales
+        """)
+        total_revenue = cursor.fetchone()[0]
+
+        cursor.execute("""
+            SELECT IFNULL(SUM(quantity_sold), 0)
+            FROM sales
+        """)
+        total_units_sold = cursor.fetchone()[0]
+
+        cursor.execute("""
+            SELECT COUNT(*)
+            FROM stocks
+        """)
+        total_stocks = cursor.fetchone()[0]
+
+        intelligence = get_intelligence_summary()
+
+        return jsonify({
+            "status": "success",
+            "business": {
+                "total_products": total_products,
+                "total_revenue": float(total_revenue),
+                "total_units_sold": int(total_units_sold),
+                "total_stocks": total_stocks
+            },
+            "inventory": intelligence
+        })
+
+    finally:
+        cursor.close()
+        connection.close()

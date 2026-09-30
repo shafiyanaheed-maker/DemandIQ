@@ -15,12 +15,22 @@ def create_app():
     from routes.investor import investor_bp
     from routes.analytics import analytics_bp
     from routes.admin import admin_bp
+    from routes.product_api import product_api_bp
+    from routes.sales_api import sales_api_bp
+    from routes.forecast_api import forecast_api_bp
+    from routes.intelligence_api import intelligence_api_bp
+    from routes.market_api import market_api_bp
 
     app.register_blueprint(auth_bp)
     app.register_blueprint(business_bp)
     app.register_blueprint(investor_bp)
     app.register_blueprint(analytics_bp)
     app.register_blueprint(admin_bp)
+    app.register_blueprint(product_api_bp)
+    app.register_blueprint(sales_api_bp)
+    app.register_blueprint(forecast_api_bp)
+    app.register_blueprint(intelligence_api_bp)
+    app.register_blueprint(market_api_bp)
 
     # Health check
     @app.route("/api/health")
